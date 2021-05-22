@@ -27,8 +27,16 @@
 .App-link {
   color: #61dafb;
 }
-.codemirror-wrapper{
-    width:100% !important;
+.codemirror-wrapper {
+  width: 100% !important;
+}
+.glassmorphism {
+  background: rgba(117, 21, 164, 0.25) !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
 }
 @keyframes App-logo-spin {
   from {

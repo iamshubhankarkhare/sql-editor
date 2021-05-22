@@ -8,18 +8,50 @@ import 'codemirror/keymap/vim.js';
 import 'codemirror/keymap/emacs.js';
 import 'codemirror/addon/dialog/dialog.js';
 import 'codemirror/addon/search/searchcursor.js';
-import { Flex, SimpleGrid } from '@chakra-ui/react';
+import { Flex, Text, Select, SimpleGrid } from '@chakra-ui/react';
 
-function Editor({ suggestionChips, setSuggestionchips }) {
-  console.log(suggestionChips);
+function Editor({ suggestions, setSuggestions }) {
+  console.log(suggestions);
   const [code, setCode] = useState('');
+  const [keybind, setKeybind] = useState('default');
 
+  const keybindings = ['default', 'vim', 'emacs'];
   useEffect(() => {
-    setCode(`${code} ${suggestionChips}`);
-  }, [suggestionChips]);
+    setCode(`${code} ${suggestions}`);
+  }, [suggestions]);
 
   return (
-    <Flex w="100%" fontSize={['md', 'xl']}>
+    <Flex
+      w="100%"
+      fontSize={['md', 'xl']}
+      m="8"
+      borderRadius="10px"
+      direction="column"
+    >
+      <Flex w="100%" justify="space-between" px="4" align="center" mb="4">
+        <Text color="white" fontSize="xl" fontWeight="400">
+          SQL
+        </Text>
+        <Select
+          w="32"
+          bg="bg.primary"
+          color="white"
+          value={keybind}
+          onChange={(e) => {
+            setKeybind(e.target.value);
+          }}
+        >
+          {keybindings.map((keybinding, i) => (
+            <option
+              value={keybinding}
+              style={{ backgroundColor: '#0D0C1F' }}
+              key={i}
+            >
+              {keybinding}
+            </option>
+          ))}
+        </Select>
+      </Flex>
       <CodeMirror
         value={code}
         className="codemirror-wrapper"
@@ -27,11 +59,12 @@ function Editor({ suggestionChips, setSuggestionchips }) {
           mode: 'sql',
           theme: 'material',
           lineNumbers: true,
+          keyMap: `${keybind}`,
         }}
         onChange={(editor, data, value) => {
           console.log(editor);
           setCode(value);
-          setSuggestionchips('');
+          setSuggestions('');
         }}
       />
     </Flex>
