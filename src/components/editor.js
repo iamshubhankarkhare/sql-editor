@@ -18,7 +18,7 @@ import { Flex, Text, Button } from '@chakra-ui/react';
 import DropDownMenu from './editorDropDownMenu';
 import { AiFillSetting } from 'react-icons/ai';
 
-function Editor({ suggestions, setSuggestions }) {
+const Editor = React.memo(({ suggestions, setSuggestions }) => {
   const [code, setCode] = useState('');
   const [keybind, setKeybind] = useState('default');
   const [theme, setTheme] = useState('dracula');
@@ -38,7 +38,9 @@ function Editor({ suggestions, setSuggestions }) {
   return (
     <Flex
       w="100%"
+      bg={['none', 'bg.primary']}
       fontSize={['md', 'xl']}
+      p={[0, 8]}
       m="8"
       borderRadius="10px"
       direction="column"
@@ -85,6 +87,6 @@ function Editor({ suggestions, setSuggestions }) {
       />
     </Flex>
   );
-}
+});
 
 export default Editor;

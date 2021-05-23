@@ -3,6 +3,7 @@ import Editor from '../components/editor';
 import SuggestionBox from '../components/suggestionBox';
 import { Button, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import Navigations from '../components/navigations';
+import { isMobile } from 'react-device-detect';
 
 function Playgroud() {
   const [suggestions, setSuggestions] = useState('FROM');
@@ -23,20 +24,22 @@ function Playgroud() {
         >
           Atlan
         </Text>
-        <Navigations />
+        {!isMobile && <Navigations />}
       </Flex>
       <Flex my="8" w="100%">
         <Editor suggestions={suggestions} setSuggestions={setSuggestions} />
-        <Flex
-          direction="column"
-          align="center"
-          display={['none', 'flex']}
-          mr="8"
-          my="8"
-          w="30vw"
-        >
-          <SuggestionBox handleClick={handleClick} />
-        </Flex>
+        {!isMobile && (
+          <Flex
+            direction="column"
+            align="center"
+            display={['none', 'flex']}
+            mr="8"
+            my="8"
+            w="30vw"
+          >
+            <SuggestionBox handleClick={handleClick} />
+          </Flex>
+        )}
       </Flex>
     </Flex>
   );
