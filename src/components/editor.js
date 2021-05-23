@@ -1,21 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
-import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/sql/sql';
 import 'codemirror/lib/codemirror.css';
+//themes
 import 'codemirror/theme/material.css';
+import 'codemirror/theme/rubyblue.css';
+import 'codemirror/theme/monokai.css';
+import 'codemirror/theme/midnight.css';
+import 'codemirror/theme/dracula.css';
+//keybindings
 import 'codemirror/keymap/vim.js';
 import 'codemirror/keymap/emacs.js';
 import 'codemirror/addon/dialog/dialog.js';
 import 'codemirror/addon/search/searchcursor.js';
-import { Flex, Text, Select, SimpleGrid } from '@chakra-ui/react';
+//UI
+import { Flex, Text, Button } from '@chakra-ui/react';
+import DropDownMenu from './editorDropDownMenu';
+import { AiFillSetting } from 'react-icons/ai';
 
 function Editor({ suggestions, setSuggestions }) {
-  console.log(suggestions);
   const [code, setCode] = useState('');
   const [keybind, setKeybind] = useState('default');
+  const [theme, setTheme] = useState('dracula');
 
   const keybindings = ['default', 'vim', 'emacs'];
+  const editorThemes = [
+    'material',
+    'rubyblue',
+    'monokai',
+    'midnight',
+    'dracula',
+  ];
   useEffect(() => {
     setCode(`${code} ${suggestions}`);
   }, [suggestions]);
@@ -28,36 +43,37 @@ function Editor({ suggestions, setSuggestions }) {
       borderRadius="10px"
       direction="column"
     >
-      <Flex w="100%" justify="space-between" px="4" align="center" mb="4">
+      <Flex w="100%" justify="space-between" px={[0, 4]} align="center" mb="4">
         <Text color="white" fontSize="xl" fontWeight="400">
           SQL
         </Text>
-        <Select
-          w="32"
-          bg="bg.primary"
-          color="white"
-          value={keybind}
-          onChange={(e) => {
-            setKeybind(e.target.value);
-          }}
-        >
-          {keybindings.map((keybinding, i) => (
-            <option
-              value={keybinding}
-              style={{ backgroundColor: '#0D0C1F' }}
-              key={i}
-            >
-              {keybinding}
-            </option>
-          ))}
-        </Select>
+        <Flex>
+          <DropDownMenu
+            options={keybindings}
+            changeState={setKeybind}
+            currentState={keybind}
+          />
+          <DropDownMenu
+            options={editorThemes}
+            changeState={setTheme}
+            currentState={theme}
+          />
+          <Button
+            leftIcon={<AiFillSetting />}
+            colorScheme="green"
+            variant="solid"
+            color="white"
+          >
+            RUN
+          </Button>
+        </Flex>
       </Flex>
       <CodeMirror
         value={code}
         className="codemirror-wrapper"
         options={{
           mode: 'sql',
-          theme: 'material',
+          theme: `${theme}`,
           lineNumbers: true,
           keyMap: `${keybind}`,
         }}

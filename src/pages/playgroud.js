@@ -24,30 +24,32 @@ function Playgroud() {
         </Text>
         <Navigations />
       </Flex>
-      <Editor suggestions={suggestions} setSuggestions={setSuggestions} />
-      <Flex
-        direction="column"
-        bg="bg.primary"
-        align="center"
-        display={['none', 'flex']}
-        w="30vw"
-      >
-        <Button
-          w="16"
-          bg="transparent"
-          color="white"
-          className="glassmorphism"
-          onClick={() => handleClick('SELECT')}
+      <Flex my="8" bg="teal" w="100%">
+        <Editor suggestions={suggestions} setSuggestions={setSuggestions} />
+        <Flex
+          direction="column"
+          bg="bg.primary"
+          align="center"
+          display={['none', 'flex']}
+          w="30vw"
         >
-          SELECT
-        </Button>
-        <Button
-          w="16"
-          className="glassmorphism"
-          onClick={() => handleClick('*')}
-        >
-          *
-        </Button>
+          <Button
+            w="16"
+            bg="transparent"
+            color="white"
+            className="glassmorphism"
+            onClick={() => handleClick('SELECT')}
+          >
+            SELECT
+          </Button>
+          <Button
+            w="16"
+            className="glassmorphism"
+            onClick={() => handleClick('*')}
+          >
+            *
+          </Button>
+        </Flex>
       </Flex>
     </Flex>
   );
