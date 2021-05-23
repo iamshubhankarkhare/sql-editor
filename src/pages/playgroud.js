@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Editor from '../components/editor';
+import SuggestionBox from '../components/suggestionBox';
 import { Button, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import Navigations from '../components/navigations';
 
@@ -10,7 +11,7 @@ function Playgroud() {
   };
   return (
     <Flex bg="bg.secondary" h="100vh" justify="space-between">
-      <Flex direction="column" display={['none', 'flex']} w="20vw">
+      <Flex direction="column" display={['none', 'flex']} w="10vw">
         <Text
           bg="bg.primary"
           py="2"
@@ -24,31 +25,17 @@ function Playgroud() {
         </Text>
         <Navigations />
       </Flex>
-      <Flex my="8" bg="teal" w="100%">
+      <Flex my="8" w="100%">
         <Editor suggestions={suggestions} setSuggestions={setSuggestions} />
         <Flex
           direction="column"
-          bg="bg.primary"
           align="center"
           display={['none', 'flex']}
+          mr="8"
+          my="8"
           w="30vw"
         >
-          <Button
-            w="16"
-            bg="transparent"
-            color="white"
-            className="glassmorphism"
-            onClick={() => handleClick('SELECT')}
-          >
-            SELECT
-          </Button>
-          <Button
-            w="16"
-            className="glassmorphism"
-            onClick={() => handleClick('*')}
-          >
-            *
-          </Button>
+          <SuggestionBox handleClick={handleClick} />
         </Flex>
       </Flex>
     </Flex>

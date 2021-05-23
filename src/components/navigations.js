@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import glassmorphismProps from '../styles/glassmorphismProps';
 import { AiOutlineHome, AiOutlineLock } from 'react-icons/ai';
 import { BsSearch, BsShield } from 'react-icons/bs';
 import { FiHexagon } from 'react-icons/fi';
@@ -22,13 +23,7 @@ function Navigations() {
           align="center"
           my="2"
           py="6"
-          _hover={{
-            background: 'rgba( 117, 21, 164, 0.25 )',
-            boxShadow: ' 0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',
-            backdropFilter: 'blur( 4px )',
-            borderRadius: '10px',
-            cursor: 'pointer',
-          }}
+          _hover={glassmorphismProps}
         >
           <Icon as={nav.icon} color="#f1faee" w="8" h="8" />
           <Text color="#F5F5F5" fontSize="xl">
