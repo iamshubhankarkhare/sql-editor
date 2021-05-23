@@ -33,6 +33,7 @@ function SuggestionBox({ handleClick }) {
       borderRadius="10px"
       flexWrap="wrap"
       p="2"
+      mb="2"
       overflow="auto"
     >
       <Text color="white" fontSize="2xl" w="100%" px="4">

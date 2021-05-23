@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import Editor from '../components/editor';
 import SuggestionBox from '../components/suggestionBox';
+import HistoryBox from '../components/historyBox';
 import { Button, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import Navigations from '../components/navigations';
 import { isMobile } from 'react-device-detect';
 
 function Playgroud() {
   const [suggestions, setSuggestions] = useState('FROM');
+  const [queries, setQueries] = useState([]);
   const handleClick = (text) => {
     setSuggestions(text);
   };
@@ -38,6 +40,11 @@ function Playgroud() {
             w="30vw"
           >
             <SuggestionBox handleClick={handleClick} />
+            <HistoryBox
+              queries={queries}
+              setQueries={setQueries}
+              handleClick={handleClick}
+            />
           </Flex>
         )}
       </Flex>
