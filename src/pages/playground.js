@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Editor from '../components/editor';
 import SuggestionBox from '../components/suggestionBox';
 import HistoryBox from '../components/historyBox';
-import { Button, Flex, SimpleGrid, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import Navigations from '../components/navigations';
 import { isMobile } from 'react-device-detect';
 

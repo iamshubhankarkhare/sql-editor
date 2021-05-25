@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import glassmorphismProps from '../styles/glassmorphismProps';
-import { Button, Flex, SimpleGrid, Text } from '@chakra-ui/react';
+import { Button, Flex, Text } from '@chakra-ui/react';
 
 function SuggestionBox({ handleClick }) {
   const keyWords = [

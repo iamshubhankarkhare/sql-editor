@@ -1,29 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
-  SimpleGrid,
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
   TableCaption,
   Box,
-  Text,
 } from '@chakra-ui/react';
 
 const Results = React.memo(({ results }) => {
-  console.log(results);
-
   return (
-    <Box overflow="auto" w="45vw" alignSelf="center" mb="8">
+    <Box overflow="auto" w={['60vw', '45vw']} alignSelf="center" mb={[2, 8]}>
       <Table color="white" size="sm">
         <TableCaption>Results</TableCaption>
         <Thead>
           <Tr>
             {Object.keys(results[0]).map((header, i) => (
-              <Th color="white" fontSize="lg" key={i}>
+              <Th color="white" fontSize={['sm', 'lg']} key={i}>
                 {header}
               </Th>
             ))}

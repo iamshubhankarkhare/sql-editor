@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Flex, SimpleGrid, Text } from '@chakra-ui/react';
+import React, { useEffect } from 'react';
+import { Button, Flex, Text } from '@chakra-ui/react';
 import glassmorphismProps from '../styles/glassmorphismProps';
 
 const HistoryBox = React.memo(({ queries, setQueries, handleClick }) => {
+  //get history from localstorage
   useEffect(() => {
     if (queries.length === 0) {
       const hist = localStorage.getItem('history');
-      console.log(hist);
       if (hist) {
         const newQueries = hist.split(',');
         setQueries([...queries, ...newQueries]);

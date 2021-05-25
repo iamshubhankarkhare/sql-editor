@@ -14,13 +14,10 @@ import 'codemirror/keymap/emacs.js';
 import 'codemirror/addon/dialog/dialog.js';
 import 'codemirror/addon/search/searchcursor.js';
 //UI
-import { Flex, Text, Button } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import EditorConfigBar from './editorConfigBar';
-import ResultBox from './resultBox';
 import { getData } from '../utils/getData';
-import glassmorphismProps from '../styles/glassmorphismProps';
 const Results = lazy(() => import('./results'));
-// const ResultBox = lazy(() => import('./resultBox'));
 
 const Editor = React.memo(
   ({ suggestions, setSuggestions, queries, setQueries }) => {
@@ -29,7 +26,6 @@ const Editor = React.memo(
     const [theme, setTheme] = useState('dracula');
     const [results, setResults] = useState([]);
 
-    console.log(ResultBox);
     useEffect(() => {
       setCode(`${code} ${suggestions}`);
     }, [suggestions]);
@@ -45,7 +41,7 @@ const Editor = React.memo(
         bg={['none', 'bg.primary']}
         fontSize={['md', 'xl']}
         p={[0, 8]}
-        m="8"
+        m={[2, 8]}
         borderRadius="10px"
         direction="column"
       >
@@ -76,15 +72,14 @@ const Editor = React.memo(
               overflow="auto"
               w="100%"
               alignSelf="center"
-              mt="4"
-              pt="4"
+              mt={[2, 4]}
+              pt={[2, 4]}
               direction="column"
             >
               <Text color="white" fontSize="2xl" mb="4" mx="4">
                 Results
               </Text>
               <Results results={results} />
-              {/* <ResultBox results={results} /> */}
             </Flex>
           )}
         </Suspense>

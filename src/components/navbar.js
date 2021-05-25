@@ -4,7 +4,6 @@ import {
   InputGroup,
   InputLeftElement,
   Flex,
-  SimpleGrid,
   Text,
 } from '@chakra-ui/react';
 import { BsSearch } from 'react-icons/bs';

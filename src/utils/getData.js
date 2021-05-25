@@ -22,6 +22,5 @@ export const getData = async () => {
   );
   //To randomize the results for the sake of this task
   objects.sort(() => (Math.random() > 0.5 ? 1 : -1));
-  console.log(objects);
   return objects;
 };

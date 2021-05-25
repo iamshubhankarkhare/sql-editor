@@ -3,7 +3,7 @@ import glassmorphismProps from '../styles/glassmorphismProps';
 import { AiOutlineHome, AiOutlineLock } from 'react-icons/ai';
 import { BsSearch, BsShield } from 'react-icons/bs';
 import { FiHexagon } from 'react-icons/fi';
-import { Icon, Flex, Box, Text } from '@chakra-ui/react';
+import { Icon, Flex, Text } from '@chakra-ui/react';
 
 function Navigations() {
   const navs = [
