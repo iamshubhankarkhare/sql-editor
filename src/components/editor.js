@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, lazy, Suspense, useState } from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 import 'codemirror/mode/sql/sql';
 import 'codemirror/lib/codemirror.css';
@@ -16,77 +16,59 @@ import 'codemirror/addon/search/searchcursor.js';
 //UI
 import { Flex, Text, Button } from '@chakra-ui/react';
 import DropDownMenu from './editorDropDownMenu';
-import { AiFillSetting } from 'react-icons/ai';
+import EditorConfigBar from './editorConfigBar';
+const Results = lazy(() => import('./results'));
 
-const Editor = React.memo(({ suggestions, setSuggestions }) => {
-  const [code, setCode] = useState('');
-  const [keybind, setKeybind] = useState('default');
-  const [theme, setTheme] = useState('dracula');
+const Editor = React.memo(
+  ({ suggestions, setSuggestions, queries, setQueries }) => {
+    const [code, setCode] = useState('');
+    const [keybind, setKeybind] = useState('default');
+    const [theme, setTheme] = useState('dracula');
 
-  const keybindings = ['default', 'vim', 'emacs'];
-  const editorThemes = [
-    'material',
-    'rubyblue',
-    'monokai',
-    'midnight',
-    'dracula',
-  ];
-  useEffect(() => {
-    setCode(`${code} ${suggestions}`);
-  }, [suggestions]);
+    useEffect(() => {
+      setCode(`${code} ${suggestions}`);
+    }, [suggestions]);
 
-  return (
-    <Flex
-      w="100%"
-      bg={['none', 'bg.primary']}
-      fontSize={['md', 'xl']}
-      p={[0, 8]}
-      m="8"
-      borderRadius="10px"
-      direction="column"
-    >
-      <Flex w="100%" justify="space-between" px={[0, 4]} align="center" mb="4">
-        <Text color="white" fontSize="xl" fontWeight="400">
-          SQL
-        </Text>
-        <Flex>
-          <DropDownMenu
-            options={keybindings}
-            changeState={setKeybind}
-            currentState={keybind}
-          />
-          <DropDownMenu
-            options={editorThemes}
-            changeState={setTheme}
-            currentState={theme}
-          />
-          <Button
-            leftIcon={<AiFillSetting />}
-            colorScheme="green"
-            variant="solid"
-            color="white"
-          >
-            RUN
-          </Button>
-        </Flex>
+    const handleClick = () => {
+      setQueries([...queries, code]);
+    };
+    return (
+      <Flex
+        w="100%"
+        bg={['none', 'bg.primary']}
+        fontSize={['md', 'xl']}
+        p={[0, 8]}
+        m="8"
+        borderRadius="10px"
+        direction="column"
+      >
+        <EditorConfigBar
+          setKeybind={setKeybind}
+          keybind={keybind}
+          setTheme={setTheme}
+          theme={theme}
+          handleClick={handleClick}
+        />
+        <CodeMirror
+          value={code}
+          className="codemirror-wrapper"
+          options={{
+            mode: 'sql',
+            theme: `${theme}`,
+            lineNumbers: true,
+            keyMap: `${keybind}`,
+          }}
+          onChange={(editor, data, value) => {
+            setCode(value);
+            setSuggestions('');
+          }}
+        />
+        <Suspense fallback={<div>Loading Component</div>}>
+          {<Results />}
+        </Suspense>
       </Flex>
-      <CodeMirror
-        value={code}
-        className="codemirror-wrapper"
-        options={{
-          mode: 'sql',
-          theme: `${theme}`,
-          lineNumbers: true,
-          keyMap: `${keybind}`,
-        }}
-        onChange={(editor, data, value) => {
-          console.log(editor);
-          setCode(value);
-          setSuggestions('');
-        }}
-      />
-    </Flex>
-  );
-});
+    );
+  }
+);
 
 export default Editor;

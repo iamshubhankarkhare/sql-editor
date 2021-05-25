@@ -1,10 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
-import Playgroud from './pages/playgroud';
+import Playground from './pages/playground';
 import Editor from './components/editor';
 
 function App() {
-  return <Playgroud />;
+  return <Playground />;
 }
 
 export default App;

@@ -1,0 +1,41 @@
+import React, { useState, useEffect } from 'react';
+
+const Results = React.memo(() => {
+  const [results, setResults] = useState([]);
+  useEffect(() => {
+    const getData = async () => {
+      const response = await fetch(
+        'https://raw.githubusercontent.com/graphql-compose/graphql-compose-examples/master/examples/northwind/data/csv/employees.csv'
+      );
+      const data = await response.text();
+      const [headerLine, ...lines] = data.split('\n');
+      const headers = headerLine.split(',');
+
+      const objects = lines.map((line, index) =>
+        line
+          // Split line with value separators
+          .split(',')
+
+          // Reduce values array into an object like: { [header]: value }
+          .reduce(
+            (object, value, index) => ({
+              ...object,
+              [headers[index]]: value,
+            }),
+            {}
+          )
+      );
+      //To randomize the results for the sake of this task
+      objects.sort(() => (Math.random() > 0.5 ? 1 : -1));
+      console.log(objects);
+      setResults([...objects]);
+    };
+  }, []);
+  return (
+    <div>
+      {results && results.map((line) => <p>{line.employeeID}</p>)}
+      {results.length === 0 && 'loading bitch'}
+    </div>
+  );
+});
+export default Results;

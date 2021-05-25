@@ -6,7 +6,7 @@ import { Button, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import Navigations from '../components/navigations';
 import { isMobile } from 'react-device-detect';
 
-function Playgroud() {
+function Playground() {
   const [suggestions, setSuggestions] = useState('FROM');
   const [queries, setQueries] = useState([]);
   const handleClick = (text) => {
@@ -29,7 +29,12 @@ function Playgroud() {
         {!isMobile && <Navigations />}
       </Flex>
       <Flex my="8" w="100%">
-        <Editor suggestions={suggestions} setSuggestions={setSuggestions} />
+        <Editor
+          suggestions={suggestions}
+          setSuggestions={setSuggestions}
+          queries={queries}
+          setQueries={setQueries}
+        />
         {!isMobile && (
           <Flex
             direction="column"
@@ -52,4 +57,4 @@ function Playgroud() {
   );
 }
 
-export default Playgroud;
+export default Playground;
