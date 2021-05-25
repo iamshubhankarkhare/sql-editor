@@ -15,22 +15,29 @@ import 'codemirror/addon/dialog/dialog.js';
 import 'codemirror/addon/search/searchcursor.js';
 //UI
 import { Flex, Text, Button } from '@chakra-ui/react';
-import DropDownMenu from './editorDropDownMenu';
 import EditorConfigBar from './editorConfigBar';
+import ResultBox from './resultBox';
+import { getData } from '../utils/getData';
+import glassmorphismProps from '../styles/glassmorphismProps';
 const Results = lazy(() => import('./results'));
+// const ResultBox = lazy(() => import('./resultBox'));
 
 const Editor = React.memo(
   ({ suggestions, setSuggestions, queries, setQueries }) => {
     const [code, setCode] = useState('');
     const [keybind, setKeybind] = useState('default');
     const [theme, setTheme] = useState('dracula');
+    const [results, setResults] = useState([]);
 
+    console.log(ResultBox);
     useEffect(() => {
       setCode(`${code} ${suggestions}`);
     }, [suggestions]);
 
-    const handleClick = () => {
+    const handleClick = async () => {
       setQueries([...queries, code]);
+      const data = await getData();
+      setResults(data);
     };
     return (
       <Flex
@@ -64,7 +71,22 @@ const Editor = React.memo(
           }}
         />
         <Suspense fallback={<div>Loading Component</div>}>
-          {<Results />}
+          {results.length !== 0 && (
+            <Flex
+              overflow="auto"
+              w="100%"
+              alignSelf="center"
+              mt="4"
+              pt="4"
+              direction="column"
+            >
+              <Text color="white" fontSize="2xl" mb="4" mx="4">
+                Results
+              </Text>
+              <Results results={results} />
+              {/* <ResultBox results={results} /> */}
+            </Flex>
+          )}
         </Suspense>
       </Flex>
     );
